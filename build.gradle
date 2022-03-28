@@ -1,0 +1,34 @@
+buildscript {
+    ext {
+        springBootVersion = '2.1.7.RELEASE' // 전역 변수 설정
+    }
+    repositories {
+        mavenCentral() // 의존성을 어디에서 다운받을것이냐
+    }
+
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+    }
+}
+
+/*---------------------spring 필수 plugin-----------------------*/
+apply plugin : 'java'
+apply plugin : 'eclipse'
+apply plugin : 'org.springframework.boot'
+apply plugin : 'io.spring.dependency-management' // 의존성 관리 plugin
+/*---------------------spring 필수 plugin-----------------------*/
+
+
+group 'com.test.blog'
+version '1.0-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation('org.springframework.boot:spring-boot-starter-web')
+    testImplementation('org.springframework.boot:spring-boot-starter-test')
+
+}

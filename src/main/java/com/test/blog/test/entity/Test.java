@@ -1,4 +1,4 @@
-package com.test.blog.test.dto;
+package com.test.blog.test.entity;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +9,10 @@ import javax.persistence.Id;
 
 @Getter
 @RequiredArgsConstructor
-public class TestDTO {
-    private final String value;
-    private final int id;
+@Entity
+public class Test {
+    @Id
+    @GeneratedValue
+    private int id;
+    private String value;
 }

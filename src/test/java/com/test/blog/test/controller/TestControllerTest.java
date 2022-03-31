@@ -1,5 +1,6 @@
 package com.test.blog.test.controller;
 
+import org.hamcrest.CoreMatchers;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,10 +8,8 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
 @RunWith(SpringRunner.class) // SpringRunner class의 생성자 실행
@@ -26,5 +25,15 @@ public class TestControllerTest {
         mvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(test));
+    }
+
+    @Test
+    public void testDTO() throws Exception {
+        final String value = "TEST";
+        final int id = 0;
+        mvc.perform(get("/test").param("value", value).param("id", String.valueOf(id)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.value", CoreMatchers.is(value))) // $를 기준으로 필드명 명시
+                .andExpect(jsonPath("$.id", CoreMatchers.is(id)));
     }
 }

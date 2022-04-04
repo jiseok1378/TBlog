@@ -35,4 +35,10 @@ public class User {
         this.socialSecurityNumber   = socialSecurityNumber;
         this.password               = password;
     }
+
+    public void update(String phoneNumber, String socialSecurityNumber, String password){
+        this.phoneNumber = phoneNumber;
+        this.socialSecurityNumber = socialSecurityNumber;
+        this.password = password;
+    }
 }

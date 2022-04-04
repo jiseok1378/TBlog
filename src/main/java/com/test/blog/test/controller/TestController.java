@@ -9,11 +9,11 @@ RestController 컨트롤러에서 반횐되는 값을 JSON 형식으로 변경�
  */
 @RestController
 public class TestController {
-    @GetMapping("/")
+    @GetMapping("/api")
     public String test(){
         return "test";
     }
-    @GetMapping("/test")
+    @GetMapping("/api/test")
     public TestDTO setTestDTO(@RequestParam("value") String value,
                              @RequestParam("id") int id ){
         return new TestDTO(value, id);

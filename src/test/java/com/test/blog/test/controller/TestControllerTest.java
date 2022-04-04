@@ -22,7 +22,7 @@ public class TestControllerTest {
     @Test
     public void test1() throws Exception{
         final String test = "test";
-        mvc.perform(get("/"))
+        mvc.perform(get("/api"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(test));
     }
@@ -31,7 +31,7 @@ public class TestControllerTest {
     public void testDTO() throws Exception {
         final String value = "TEST";
         final int id = 0;
-        mvc.perform(get("/test").param("value", value).param("id", String.valueOf(id)))
+        mvc.perform(get("/api/test").param("value", value).param("id", String.valueOf(id)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.value", CoreMatchers.is(value))) // $를 기준으로 필드명 명시
                 .andExpect(jsonPath("$.id", CoreMatchers.is(id)));

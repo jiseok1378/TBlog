@@ -47,7 +47,7 @@ public class UserControllerTest {
                 .phoneNumber("000-0000-0000")
                 .socialSecurityNumber("000000-0000000")
                 .build();
-        String url = "http://localhost:" + port + "/api/user";
+        String url = "http://localhost:" + port + "/api/v1/user";
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, userDTO, String.class);
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isEqualTo(id);

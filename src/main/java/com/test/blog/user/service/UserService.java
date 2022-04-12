@@ -1,5 +1,6 @@
 package com.test.blog.user.service;
 
+import com.test.blog.exception.NoSearchDataException;
 import com.test.blog.user.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -25,13 +26,13 @@ public class UserService {
 
     @Transactional
     public String update(String id, UserDTO userDTO){
-        User user = userRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("해당 아이디가 없습니다."));
+        User user = userRepository.findById(id).orElseThrow(() -> new NoSearchDataException("error"));
         user.update(userDTO.getPhoneNumber(), userDTO.getSocialSecurityNumber(), userDTO.getPassword());
         return id;
     }
 
     public UserDTO findById(String id){
-       User user = userRepository.findById(id).orElseThrow(() ->  new IllegalArgumentException("해당 아이디가 없습니다."));
+       User user = userRepository.findById(id).orElseThrow(() -> new NoSearchDataException("error"));
        return new UserDTO(user);
     }
 }

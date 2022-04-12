@@ -2,6 +2,7 @@ package com.test.blog.user.controller;
 
 import com.test.blog.user.entity.User;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,12 +41,21 @@ public class UserControllerTest {
     }
     @Test
     public void save() throws Exception{
-        String id = "JJStone";
+        String id = "user1";
+        String password = "1111";
+        String imageUrl = "www.google.com";
+        String familyName = "j";
+        String givenName = "js";
+        String name = "jjs";
+        String email = imageUrl;
         UserDTO userDTO = UserDTO.builder()
                 .id(id)
-                .password("1234")
-                .phoneNumber("000-0000-0000")
-                .socialSecurityNumber("000000-0000000")
+                .password(password)
+                .imageUrl(imageUrl)
+                .name(name)
+                .familyName(familyName)
+                .givenName(givenName)
+                .email(email)
                 .build();
         String url = "http://localhost:" + port + "/api/v1/user";
         ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, userDTO, String.class);
@@ -61,26 +71,25 @@ public class UserControllerTest {
     @Test
     public void update() throws Exception{
         String id = "user1";
+        String password = "1111";
+        String imageUrl = "www.google.com";
+        String familyName = "j";
+        String givenName = "js";
+        String name = "jjs";
+        String email = imageUrl;
         User saveUser = userRepository.save(User.builder()
                 .id(id)
-                .password("1234")
-                .socialSecurityNumber("000000-0000000")
-                .phoneNumber("000-0000-0000")
+                .password(password)
+                .imageUrl(imageUrl)
+                .name(name)
+                .familyName(familyName)
+                .givenName(givenName)
+                .email(email)
                 .build());
 
-        String updateId = saveUser.getId();
-        String password = "5678";
-        String socialSecurityNumber = "111111-1111111";
-        String phoneNumber = "111-1111-1111";
 
-        UserDTO userDTO = UserDTO.builder()
-                .password(password)
-                .socialSecurityNumber(socialSecurityNumber)
-                .phoneNumber(phoneNumber)
-                .build();
-
-        String url = "http://localhost:" + port + "/api/v1/user/" + updateId;
-
+        String url = "http://localhost:" + port + "/api/v1/user/" + id;
+        UserDTO userDTO = new UserDTO(saveUser);
         HttpEntity<UserDTO> requestEntity = new HttpEntity<>(userDTO);
 
         ResponseEntity<String> responseEntity = restTemplate.exchange(url, HttpMethod.PUT, requestEntity, String.class);
@@ -88,11 +97,11 @@ public class UserControllerTest {
         assertThat(responseEntity.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(responseEntity.getBody()).isEqualTo(id);
 
-        Optional<User> user_ = userRepository.findById(updateId);
+        Optional<User> user_ = userRepository.findById(id);
         assertThat(user_).isNotEmpty();
         User user = user_.get();
         assertThat(user.getPassword()).isEqualTo(password);
-        assertThat(user.getPhoneNumber()).isEqualTo(phoneNumber);
-        assertThat(user.getSocialSecurityNumber()).isEqualTo(socialSecurityNumber);
+        assertThat(user.getEmail()).isEqualTo(email);
+        assertThat(user.getGivenName()).isEqualTo(givenName);
     }
 }

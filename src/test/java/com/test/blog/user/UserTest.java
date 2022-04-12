@@ -1,5 +1,6 @@
 package com.test.blog.user;
 
+import com.test.blog.user.dto.UserDTO;
 import com.test.blog.user.entity.User;
 import com.test.blog.user.entity.UserRepository;
 import org.assertj.core.api.Assertions;
@@ -26,13 +27,21 @@ public class UserTest {
 
     @Test
     public void insertAndSelectUser(){
-        final String adminId = "ADMIN";
-        final String adminPassword = "ADMIN1234";
+        String id = "user1";
+        String password = "1111";
+        String imageUrl = "www.google.com";
+        String familyName = "j";
+        String givenName = "js";
+        String name = "jjs";
+        String email = imageUrl;
         User user = User.builder()
-                .id(adminId)
-                .password(adminPassword)
-                .phoneNumber("000-0000-0000")
-                .socialSecurityNumber("123456-1234567")
+                .id(id)
+                .name(name)
+                .password(password)
+                .imageUrl(imageUrl)
+                .familyName(familyName)
+                .givenName(givenName)
+                .email(email)
                 .build();
 
         userRepository.save(user);
@@ -41,7 +50,7 @@ public class UserTest {
 
         User user1 = users.get(0);
 
-        Assertions.assertThat(user1.getId()).isEqualTo(adminId);
-        Assertions.assertThat(user1.getPassword()).isEqualTo(adminPassword);
+        Assertions.assertThat(user1.getId()).isEqualTo(id);
+        Assertions.assertThat(user1.getPassword()).isEqualTo(password);
     }
 }

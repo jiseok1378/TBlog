@@ -1,6 +1,7 @@
 package com.test.blog.user.entity;
 
 
+import com.test.blog.user.dto.UserDTO;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,31 +19,44 @@ import java.util.Collection;
 @NoArgsConstructor
 public class User implements UserDetails {
 
+    @Column(unique = true)
+    private String email;
+
+    @Column(nullable = false)
+    private String name;
+
+    @Column(nullable = false)
+    private String givenName;
+
+    @Column(nullable = false)
+    private String familyName;
+
+    @Column(nullable = false)
+    private String imageUrl;
+
     @Id
     private String id;
 
-    @Column(length = 100, nullable = false)
-    private String phoneNumber;
-
-    @Column(length = 100, nullable = false)
-    private String socialSecurityNumber;
-
-    @Column(length = 100, nullable = false)
+    @Column(nullable = false)
     private String password;
 
-
     @Builder
-    public User(String id, String phoneNumber, String socialSecurityNumber, String password){
-        this.id                     = id;
-        this.phoneNumber            = phoneNumber;
-        this.socialSecurityNumber   = socialSecurityNumber;
-        this.password               = password;
+    public User(String id, String email, String name, String givenName, String familyName, String imageUrl, String password){
+        this.id = id;
+        this.email = email;
+        this.name = name;
+        this.givenName = givenName;
+        this.familyName = familyName;
+        this.imageUrl = imageUrl;
+        this.password = password;
     }
 
-    public void update(String phoneNumber, String socialSecurityNumber, String password){
-        this.phoneNumber = phoneNumber;
-        this.socialSecurityNumber = socialSecurityNumber;
-        this.password = password;
+    public void update(UserDTO userDTO){
+        this.name = userDTO.getName();
+        this.givenName = userDTO.getGivenName();
+        this.familyName = userDTO.getFamilyName();
+        this.imageUrl = userDTO.getImageUrl();
+        this.password = userDTO.getPassword();
     }
 
     @Override

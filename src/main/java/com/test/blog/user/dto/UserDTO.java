@@ -6,37 +6,59 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
+import javax.persistence.Id;
+
 
 @Getter
 @NoArgsConstructor
 public class UserDTO {
+
+    private String email;
+
+    private String name;
+
+    private String givenName;
+
+    private String familyName;
+
+    private String imageUrl;
+
     private String id;
-    private String phoneNumber;
-    private String socialSecurityNumber;
+
     private String password;
 
     @Builder
-    public UserDTO(String id, String phoneNumber, String socialSecurityNumber, String password){
+    public UserDTO(String email, String name, String givenName, String familyName, String imageUrl, String id, String password){
+        this.email = email;
+        this.name = name;
+        this.givenName = givenName;
+        this.familyName = familyName;
+        this.imageUrl = imageUrl;
         this.id = id;
-        this.phoneNumber = phoneNumber;
-        this.socialSecurityNumber =socialSecurityNumber;
         this.password = password;
     }
 
     public User toEntity(){
         return User.builder()
+                .email(email)
+                .name(name)
+                .givenName(givenName)
+                .familyName(familyName)
+                .imageUrl(imageUrl)
                 .id(id)
-                .phoneNumber(phoneNumber)
-                .socialSecurityNumber(socialSecurityNumber)
                 .password(password)
                 .build();
     }
 
     public UserDTO(User user){
+        this.email = user.getEmail();
+        this.name = user.getName();
+        this.givenName = user.getGivenName();
+        this.familyName = user.getFamilyName();
+        this.imageUrl = user.getImageUrl();
         this.id = user.getId();
         this.password = user.getPassword();
-        this.socialSecurityNumber = user.getSocialSecurityNumber();
-        this.phoneNumber = user.getPhoneNumber();
     }
 
 }

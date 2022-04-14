@@ -85,6 +85,7 @@ public class UserControllerTest {
                 .familyName(familyName)
                 .givenName(givenName)
                 .email(email)
+                .role("ROLE_USER")
                 .build());
 
 

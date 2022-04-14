@@ -48,6 +48,7 @@ public class UserDTO {
                 .imageUrl(imageUrl)
                 .id(id)
                 .password(password)
+                .role("ROLE_USER")
                 .build();
     }
 

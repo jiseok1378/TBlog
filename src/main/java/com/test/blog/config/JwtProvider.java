@@ -1,6 +1,6 @@
 package com.test.blog.config;
 
-import com.test.blog.service.CustomUserDetailService;
+import com.test.blog.user.service.CustomUserDetailService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;

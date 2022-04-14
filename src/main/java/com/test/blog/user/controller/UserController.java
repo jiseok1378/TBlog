@@ -1,6 +1,10 @@
 package com.test.blog.user.controller;
 
+import com.test.blog.config.JwtProvider;
+import com.test.blog.user.dto.SignInDTO;
+import com.test.blog.user.dto.SignUpDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import com.test.blog.user.dto.UserDTO;
@@ -18,23 +22,28 @@ import com.test.blog.user.service.UserService;
 
 @RequiredArgsConstructor
 @RestController
+@RequestMapping("/api/v1")
 public class UserController {
 
 
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
+    private final JwtProvider jwtProvider;
 
-    @PostMapping("/api/v1/user")
-    public String save(@RequestBody UserDTO userDTO){
-        return userService.save(userDTO);
+    @PostMapping("/signup")
+    private String signup(SignUpDTO signUpDTO){
+        return userService.signup(signUpDTO);
     }
 
-    @PutMapping("/api/v1/user/{id}")
-    public String update(@PathVariable String id, @RequestBody UserDTO userDTO){
-        return userService.update(id, userDTO);
+    @PostMapping("/login")
+    private String login(SignInDTO signInDTO){
+        return userService.login(signInDTO);
     }
 
-    @GetMapping("/api/v1/user/{id}")
-    public UserDTO findById(@PathVariable String id){
-        return userService.findById(id);
+    @GetMapping("/user/{id}")
+    private String findUserName(@PathVariable("id") String id){
+        return userService.findUserName(id);
+
     }
+
 }
